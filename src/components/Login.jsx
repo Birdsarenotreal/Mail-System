@@ -33,11 +33,29 @@ export default function Login() {
     e.preventDefault();
     setLoading(true);
     const User = { email: email, password: password };
+    handleValidation();
     axios
       .post("http://localhost:5000/users/add", User)
       .then(console.log("user added."))
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        if (err.response) {
+          alert(err.response.data.error);
+        }
+      });
   };
+
+  const handleValidation = () => {
+    if (!email) {
+      alert("The email field cant be empty.");
+    }
+    if (!password) {
+      alert("The password field cant be empty.");
+    }
+    if (!email.includes("@")) {
+      alert("The email format must be in the form of user@domain.");
+    }
+  };
+
   return (
     <form>
       <div className="form-group">
@@ -59,7 +77,7 @@ export default function Login() {
           className="form-control"
           id="exampleInputPassword1"
           placeholder="Password"
-          value={email || ""}
+          value={password || ""}
           onChange={onChangePassword}
         />
       </div>

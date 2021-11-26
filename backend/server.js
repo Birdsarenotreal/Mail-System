@@ -22,8 +22,8 @@ const userRouter = require("./routes/users");
 const mailRouter = require("./routes/mail");
 const singInRouter = require("./routes/signin");
 
-app.use("/users", userRouter);
-app.use("/signin", singInRouter);
+//app.use("/users", userRouter);
+app.use("/users", singInRouter);
 app.use("/users/mail", mailRouter);
 
 app.listen(port, () => {
