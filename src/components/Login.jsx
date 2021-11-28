@@ -10,58 +10,37 @@ export default function Login() {
   const [signUpError, setSignUpError] = useState("");
   const [signInError, setSignInError] = useState("");
 
-  // const onLogin = (e) => {
-  //   e.preventDefault();
-
-  //   const Users = {};
-  //   axios
-  //     .get("http://localhost:5000/user/")
-  //     .then((data) => ({
-  //       Users: data,
-  //     }))
-  //     .catch((error) => console.log(error));
-  // };
   const onChangeEmail = (e) => {
     e.preventDefault();
     setEmail(e.target.value);
+    setSignUpError("");
   };
   const onChangePassword = (e) => {
     e.preventDefault();
     setPassword(e.target.value);
+    setSignUpError("");
   };
   const onSignUp = (e) => {
     e.preventDefault();
     setLoading(true);
     const User = { email: email, password: password };
-    handleValidation();
     axios
       .post("http://localhost:5000/users/add", User)
       .then(console.log("user added."))
       .catch((err) => {
         if (err.response) {
-          alert(err.response.data.error);
+          setSignUpError(err.response.data.error);
         }
       });
   };
 
-  const handleValidation = () => {
-    if (!email) {
-      alert("The email field cant be empty.");
-    }
-    if (!password) {
-      alert("The password field cant be empty.");
-    }
-    if (!email.includes("@")) {
-      alert("The email format must be in the form of user@domain.");
-    }
-  };
-
   return (
-    <form>
+    <form onSubmit={onSignUp}>
       <div className="form-group">
         <label htmlFor="exampleInputEmail1">Email address</label>
         <input
           type="email"
+          required
           className="form-control"
           id="exampleInputEmail1"
           aria-describedby="emailHelp"
@@ -70,10 +49,12 @@ export default function Login() {
           onChange={onChangeEmail}
         />
       </div>
+      <div className="form-group text-danger m-1">{signUpError}</div>
       <div className="form-group">
         <label htmlFor="exampleInputPassword1">Password</label>
         <input
           type="password"
+          required
           className="form-control"
           id="exampleInputPassword1"
           placeholder="Password"
@@ -95,7 +76,7 @@ export default function Login() {
         Login.
       </button>
       &nbsp;
-      <button type="submit" className="btn btn-primary" onClick={onSignUp}>
+      <button type="submit" className="btn btn-primary">
         Sign up.
       </button>
     </form>
