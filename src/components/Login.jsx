@@ -3,12 +3,15 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "../css/Login.css";
 import axios from "axios";
 import { setInStorage, getFromStorage } from "../utils/storage.js";
+import { useHistory } from "react-router-dom";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [token, setToken] = useState("");
   const [signInError, setSignInError] = useState("");
+
+  const history = useHistory();
 
   const onChangeEmail = (e) => {
     e.preventDefault();
@@ -22,20 +25,27 @@ export default function Login() {
   };
 
   const onLogIn = (e) => {
+    e.preventDefault();
+
     const User = { email: email, password: password };
     axios
       .post("http://localhost:5000/users/login", User)
       .then((data) => {
-        if (data.success) {
-          setInStorage("the_main_app", { token: data.token });
+        if (data.data.success) {
+          console.log(data.data.message);
+          setInStorage("the_main_app", { token: data.data.token });
           setEmail("");
           setPassword("");
-          setToken(data.token);
+          setToken(data.data.token);
+          history.push("/home");
         } else {
-          setSignInError(data.message);
+          // console.log("login test3");
+          // setSignInError(data.data.message);
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setSignInError(err.response.data.message);
+      });
   };
 
   return (

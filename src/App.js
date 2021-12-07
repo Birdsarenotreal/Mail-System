@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import List from "./components/List.js";
+import Home from "./components/Home.jsx";
 import Login from "./components/Login.jsx";
 import SignUp from "./components/SignUp.jsx";
 import "./App.css";
@@ -14,6 +14,7 @@ function App() {
           <Route path="/" exact component={Login} />
           <Route path="/login" component={Login}></Route>
           <Route path="/signup" component={SignUp}></Route>
+          <Route path="/home" component={Home}></Route>
         </div>
       </div>
     </Router>

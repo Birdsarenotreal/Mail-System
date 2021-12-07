@@ -7,15 +7,17 @@ export default function Listitem(props) {
       <td>{props.to}</td>
       <td>{props.from}</td>
       <td>{props.date}</td>
-      <button
-        className="btn btn-danger"
-        type="button"
-        onClick={() => {
-          props.deleteMail(props.mail._id);
-        }}
-      >
-        Delete
-      </button>
+      <td>
+        <button
+          className="btn btn-danger"
+          type="button"
+          // onClick={() => {
+          //   props.deleteMail(props.mail._id);
+          // }}
+        >
+          Delete
+        </button>
+      </td>
     </tr>
   );
 }
