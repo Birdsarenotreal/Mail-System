@@ -40,7 +40,11 @@ export default function SignUp() {
       });
   };
   return (
-    <form onSubmit={onSignUp} className="text-center">
+    <form
+      onSubmit={onSignUp}
+      className="text-center"
+      autoComplete="new-password"
+    >
       <div className="form-group">
         <label htmlFor="exampleInputEmail1">Email address</label>
         <input

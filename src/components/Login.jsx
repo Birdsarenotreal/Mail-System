@@ -32,8 +32,11 @@ export default function Login() {
       .post("http://localhost:5000/users/login", User)
       .then((data) => {
         if (data.data.success) {
-          console.log(data.data.message);
-          setInStorage("the_main_app", { token: data.data.token });
+          console.log(data.data.message, data.data.userName);
+          setInStorage("the_main_app", {
+            token: data.data.token,
+            userName: data.data.userName,
+          });
           setEmail("");
           setPassword("");
           setToken(data.data.token);

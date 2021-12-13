@@ -1,7 +1,20 @@
 import React from "react";
 import Listitem from "./Listitem.js";
 
-export default function List() {
+export default function List(props) {
+  const items = (e) => {
+    return props.data.map((el) => {
+      return (
+        <Listitem
+          key={el._id}
+          subject={el.subject}
+          to={el.to}
+          from={el.from}
+          date={el.date}
+        ></Listitem>
+      );
+    });
+  };
   return (
     <table className="table table-dark">
       <thead>
@@ -12,11 +25,7 @@ export default function List() {
           <th>Date</th>
         </tr>
       </thead>
-      <tbody>
-        <Listitem subject={"asd"} to={"asfas"} from={"test"}></Listitem>
-        <Listitem subject={"asd"} to={"asfas"} from={"test"}></Listitem>
-        <Listitem subject={"asd"} to={"asfas"} from={"test"}></Listitem>
-      </tbody>
+      <tbody>{items()}</tbody>
     </table>
   );
 }

@@ -35,7 +35,11 @@ router.route("/login").post((req, res) => {
         const userSession = new UserSession();
 
         userSession.userId = user._id;
+        userSession.userName = user.email;
+
         console.log(userSession._id, "token at creation");
+        console.log(userSession.userName, "username at creation");
+
         userSession.save((err, doc) => {
           if (err) {
             return res
@@ -45,6 +49,7 @@ router.route("/login").post((req, res) => {
           return res.status(200).json({
             message: "user session created",
             token: doc._id,
+            userName: doc.userName,
             success: true,
           });
         });

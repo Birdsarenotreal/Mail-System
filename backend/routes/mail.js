@@ -3,23 +3,57 @@ const router = require("express").Router();
 let Mail = require("../models/Mail.model");
 
 router.route("/").get((req, res) => {
-  Mail.find()
-    .then((users) => res.json(users))
+  const userName = req.query.userName;
+  console.log(userName);
+  const promise = Mail.find({ to: userName });
+  promise
+    .then((mails) => {
+      res.json(mails);
+    })
     .catch((err) => res.status(400).json("Error: " + err));
 });
-
+// router.route("/logout/").get((req, res) => {
+//   const token = req.query.token;
+//   console.log(token, "token at logout");
+//   UserSession.findOneAndRemove(
+//     {
+//       _id: token,
+//       isDeleted: false,
+//     },
+//     null,
+//     (err, sessions) => {
+//       if (err) {
+//         console.log(err);
+//         return res
+//           .status(500)
+//           .json({ success: false, message: "Error: logout error." });
+//       }
+//       return res
+//         .status(200)
+//         .json({ success: true, message: "logout succesfull" });
+//     }
+//   );
+// });
 router.route("/add").post((req, res) => {
-  const subject = req.body.email;
+  // const recieverId = req.body.recieverId;
+  // const senderId = req.body.senderId;
+  const subject = req.body.subject;
   const to = req.body.to;
-  const from = req.body.duration;
-  const date = Date.parse(req.body.date);
+  const from = req.body.from;
+  const date = req.body.date;
+  const content = req.body.content;
+  console.log(subject, "1");
+  console.log(to, "2");
+  console.log(from, "3");
+  console.log(content, "4");
+  console.log(date, "5");
 
-  const newMail = new Mail({ subject, to, from, date });
-
+  const newMail = new Mail({ subject, to, from, date, content });
+  console.log(newMail);
   newMail
     .save()
     .then((Mail) => res.json("Mail added"))
-    .catch((err) => res.status(400).json("Error: " + err));
+    .catch((err) => res.status(400).json(err));
 });
 
 router.route("/:id").get((req, res) => {
