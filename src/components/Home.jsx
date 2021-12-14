@@ -23,20 +23,18 @@ export default function Home() {
       history.push("/");
       return;
     }
-
     setToken(obj.token);
     setUserName(obj.userName);
-
-    //console.log(mails, "test effect2");
-    //console.log(token, "test effect");
   });
 
-  const deleteMail = (e) => {
+  const deleteMail = (id) => {
     axios
-      .delete("http://localhost:5000/mails/", { params: {} })
-      .then()
-      .catch((err) => console.log(err));
+      .delete("http://localhost:5000/mails/", { params: { id: id } })
+      .then(alert("Email deleted."))
+      .catch((err) => console.log(err.response.data));
+    setMails(mails.filter((el) => el._id !== id));
   };
+
   const loadMails = (e) => {
     axios
       .get("http://localhost:5000/mails/", { params: { userName: userName } })
@@ -69,7 +67,7 @@ export default function Home() {
     <div>
       <button onClick={Logout}>Logout</button>
       <button onClick={loadMails}>Refresh emails.</button>
-      <List data={mails}></List>
+      <List data={mails} delete={deleteMail}></List>
       <CreateMail from={userName}></CreateMail>
     </div>
   );

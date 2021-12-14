@@ -35,21 +35,14 @@ router.route("/").get((req, res) => {
 //   );
 // });
 router.route("/add").post((req, res) => {
-  // const recieverId = req.body.recieverId;
-  // const senderId = req.body.senderId;
   const subject = req.body.subject;
   const to = req.body.to;
   const from = req.body.from;
   const date = req.body.date;
   const content = req.body.content;
-  console.log(subject, "1");
-  console.log(to, "2");
-  console.log(from, "3");
-  console.log(content, "4");
-  console.log(date, "5");
 
   const newMail = new Mail({ subject, to, from, date, content });
-  console.log(newMail);
+
   newMail
     .save()
     .then((Mail) => res.json("Mail added"))
@@ -62,8 +55,10 @@ router.route("/:id").get((req, res) => {
     .catch((err) => res.status(400).json("Erro: " + err));
 });
 
-router.route("/:id").delete((req, res) => {
-  Mail.findByIdAndDelete(req.params.id)
+router.route("/").delete((req, res) => {
+  const id = req.query.id;
+  console.log(id);
+  Mail.findByIdAndDelete(id)
     .then((Mail) => res.json("Mail deleted"))
     .catch((err) => res.status(400).json("error: " + err));
 });

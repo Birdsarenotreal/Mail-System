@@ -11,9 +11,9 @@ export default function Listitem(props) {
         <button
           className="btn btn-danger"
           type="button"
-          // onClick={() => {
-          //   props.deleteMail(props.mail._id);
-          // }}
+          onClick={() => {
+            props.delete(props.mailId);
+          }}
         >
           Delete
         </button>

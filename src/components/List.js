@@ -11,6 +11,8 @@ export default function List(props) {
           to={el.to}
           from={el.from}
           date={el.date}
+          delete={props.delete}
+          mailId={el._id}
         ></Listitem>
       );
     });
