@@ -9,13 +9,26 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import CreateMail from "./CreateMail";
+import Reader from "./Reader";
 
 export default function Home() {
   const [mails, setMails] = useState([]);
   const [token, setToken] = useState("");
   const [userName, setUserName] = useState("");
+  const [selectedMail, setSelectedMail] = useState("");
+  const [contains2, setContains2] = useState("");
 
   const history = useHistory();
+
+  const findEmail = (contains) => {
+    const test = mails.filter(
+      (el) =>
+        el.subject.includes(contains) == true ||
+        el.content.includes(contains) == true ||
+        el.from.includes(contains) == true
+    );
+    setMails(test);
+  };
 
   useEffect(() => {
     const obj = getFromStorage("the_main_app");
@@ -26,7 +39,6 @@ export default function Home() {
     setToken(obj.token);
     setUserName(obj.userName);
   });
-
   const deleteMail = (id) => {
     axios
       .delete("http://localhost:5000/mails/", { params: { id: id } })
@@ -42,6 +54,10 @@ export default function Home() {
         setMails(data.data);
       });
     console.log(mails);
+  };
+
+  const onChangeContains = (e) => {
+    setContains2(e.target.value);
   };
 
   const Logout = (e) => {
@@ -65,10 +81,32 @@ export default function Home() {
   };
   return (
     <div>
+      <div className="input-group">
+        <div className="form-outline">
+          <input
+            type="search"
+            id="form1"
+            className="form-control"
+            value={contains2}
+            onChange={onChangeContains}
+          />
+        </div>
+        <button
+          type="button"
+          className="btn btn-primary"
+          onClick={() => {
+            findEmail(contains2);
+          }}
+        >
+          <i className="fas fa-search">Search</i>
+        </button>
+      </div>
       <button onClick={Logout}>Logout</button>
       <button onClick={loadMails}>Refresh emails.</button>
-      <List data={mails} delete={deleteMail}></List>
+      <List data={mails} delete={deleteMail} selected={setSelectedMail}></List>
+
       <CreateMail from={userName}></CreateMail>
+      <Reader mail={selectedMail}></Reader>
     </div>
   );
 }
