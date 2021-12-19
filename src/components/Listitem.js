@@ -12,7 +12,8 @@ export default function Listitem(props) {
     <tr
       onClick={() => {
         props.selected(mail);
-        console.log(mail);
+        props.toggleReadOn(true);
+        props.toggleComposeOff(false);
       }}
     >
       <td>{props.subject}</td>

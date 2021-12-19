@@ -18,6 +18,24 @@ export default function Reader(props) {
   });
 
   return (
+    // <div>
+    //   <div>
+    //     <h5>From:</h5>
+    //     <div>{from}</div>
+    //   </div>
+    //   <div>
+    //     <h5>Subject:</h5>
+    //     <p>{subject}</p>
+    //   </div>
+    //   <div>
+    //     <h5>Date:</h5>
+    //     <p>{date}</p>
+    //   </div>
+    //   <div>
+    //     <h5>Content:</h5>
+    //     <p>{content}</p>
+    //   </div>
+    // </div>
     <form>
       <div className="form-group">
         <label htmlFor="exampleFormControlInput1">To:</label>
@@ -26,7 +44,7 @@ export default function Reader(props) {
           className="form-control"
           id="exampleFormControlInput1"
           placeholder="name@example.com"
-          value={to}
+          value={to || ""}
           autoComplete="off"
           readOnly
         />
@@ -37,8 +55,7 @@ export default function Reader(props) {
           type="email"
           className="form-control"
           id="exampleFormControlInput1"
-          placeholder="name@example.com"
-          value={from}
+          value={from || ""}
           autoComplete="off"
           readOnly
         />
@@ -49,8 +66,7 @@ export default function Reader(props) {
           type="email"
           className="form-control"
           id="exampleFormControlInput1"
-          placeholder="name@example.com"
-          value={date}
+          value={date || ""}
           autoComplete="off"
           readOnly
         />
@@ -61,7 +77,7 @@ export default function Reader(props) {
           type="text"
           className="form-control"
           id="exampleFormControlInput1"
-          value={subject}
+          value={subject || ""}
           readOnly
         />
       </div>
@@ -71,7 +87,7 @@ export default function Reader(props) {
           className="form-control"
           id="exampleFormControlTextarea1"
           rows="3"
-          value={content}
+          value={content || ""}
           readOnly
         ></textarea>
       </div>

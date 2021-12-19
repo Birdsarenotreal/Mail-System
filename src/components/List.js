@@ -15,12 +15,14 @@ export default function List(props) {
           mailId={el._id}
           selected={props.selected}
           content={el.content}
+          toggleReadOn={props.toggleReadOn}
+          toggleComposeOff={props.toggleComposeOff}
         ></Listitem>
       );
     });
   };
   return (
-    <table className="table table-dark">
+    <table className="table table-light">
       <thead>
         <tr>
           <th>Subject.</th>

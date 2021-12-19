@@ -17,7 +17,8 @@ export default function Home() {
   const [userName, setUserName] = useState("");
   const [selectedMail, setSelectedMail] = useState("");
   const [contains2, setContains2] = useState("");
-
+  const [read, setRead] = useState("");
+  const [compose, setCompose] = useState("");
   const history = useHistory();
 
   const findEmail = (contains) => {
@@ -103,10 +104,23 @@ export default function Home() {
       </div>
       <button onClick={Logout}>Logout</button>
       <button onClick={loadMails}>Refresh emails.</button>
-      <List data={mails} delete={deleteMail} selected={setSelectedMail}></List>
-
-      <CreateMail from={userName}></CreateMail>
-      <Reader mail={selectedMail}></Reader>
+      <List
+        data={mails}
+        delete={deleteMail}
+        selected={setSelectedMail}
+        toggleReadOn={setRead}
+        toggleComposeOff={setCompose}
+      ></List>
+      {compose && <CreateMail from={userName}></CreateMail>}
+      {read && <Reader mail={selectedMail}></Reader>}
+      <button
+        onClick={() => {
+          setCompose(true);
+          setRead(false);
+        }}
+      >
+        Compose new email.
+      </button>
     </div>
   );
 }
