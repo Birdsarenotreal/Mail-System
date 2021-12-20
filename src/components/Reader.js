@@ -38,18 +38,6 @@ export default function Reader(props) {
     // </div>
     <form>
       <div className="form-group">
-        <label htmlFor="exampleFormControlInput1">To:</label>
-        <input
-          type="email"
-          className="form-control"
-          id="exampleFormControlInput1"
-          placeholder="name@example.com"
-          value={to || ""}
-          autoComplete="off"
-          readOnly
-        />
-      </div>
-      <div className="form-group">
         <label htmlFor="exampleFormControlInput1">From:</label>
         <input
           type="email"
@@ -91,6 +79,7 @@ export default function Reader(props) {
           readOnly
         ></textarea>
       </div>
+      <button className="btn btn-info">Reply.</button>
     </form>
   );
 }

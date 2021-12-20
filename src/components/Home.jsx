@@ -81,7 +81,24 @@ export default function Home() {
     }
   };
   return (
-    <div>
+    <div className="row">
+      <div className="row">
+        <button className="col-2" onClick={Logout}>
+          Logout
+        </button>
+        <button className="col-2 offset-md-2" onClick={loadMails}>
+          Refresh emails.
+        </button>
+        <button
+          className="col-2 offset-md-2"
+          onClick={() => {
+            setCompose(true);
+            setRead(false);
+          }}
+        >
+          Compose new email.
+        </button>
+      </div>
       <div className="input-group">
         <div className="form-outline">
           <input
@@ -102,8 +119,7 @@ export default function Home() {
           <i className="fas fa-search">Search</i>
         </button>
       </div>
-      <button onClick={Logout}>Logout</button>
-      <button onClick={loadMails}>Refresh emails.</button>
+
       <List
         data={mails}
         delete={deleteMail}
@@ -111,16 +127,10 @@ export default function Home() {
         toggleReadOn={setRead}
         toggleComposeOff={setCompose}
       ></List>
-      {compose && <CreateMail from={userName}></CreateMail>}
+      {compose && (
+        <CreateMail from={userName} cc={selectedMail.from}></CreateMail>
+      )}
       {read && <Reader mail={selectedMail}></Reader>}
-      <button
-        onClick={() => {
-          setCompose(true);
-          setRead(false);
-        }}
-      >
-        Compose new email.
-      </button>
     </div>
   );
 }

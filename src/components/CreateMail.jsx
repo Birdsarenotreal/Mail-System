@@ -27,34 +27,31 @@ export default function CreateMail(props) {
     e.preventDefault();
     var date = new Date();
     setDate(date);
+    const recievers = to.split(",");
     //console.log(date, "createmail component log");
-    const mail = {
-      from: from,
-      to: to,
-      content: content,
-      subject: subject,
-      date: date,
-    };
-    axios
-      .post("http://localhost:5000/mails/add", mail)
-      .then((res) => {
-        alert("mail sent succesffly");
-        setContent("");
-        setDate("");
-        setFrom("");
-        setSubject("");
-        setTo("");
-      })
-      .catch((err) => {
-        console.log(err.response.data);
-      });
+    recievers.map((el) => {
+      const mail = {
+        from: from,
+        to: el,
+        content: content,
+        subject: subject,
+        date: date,
+      };
+      axios
+        .post("http://localhost:5000/mails/add", mail)
+        .then((res) => {
+          console.log(mail.to);
+        })
+        .catch((err) => {
+          console.log(err.response.data);
+        });
+    });
   };
   return (
     <form onSubmit={onSubmit}>
       <div className="form-group">
         <label htmlFor="exampleFormControlInput1">To:</label>
         <input
-          type="email"
           className="form-control"
           id="exampleFormControlInput1"
           placeholder="name@example.com"
