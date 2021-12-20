@@ -10,11 +10,20 @@ export default function CreateMail(props) {
 
   useEffect(() => {
     setFrom(props.from);
-    //console.log(from);
   }, [to]);
+  useEffect(() => {
+    if (props.reply == true) {
+      console.log(props.cc.from, props.cc.subject);
+      setTo(props.cc.from);
+      setSubject(props.cc.subject);
+    }
+    if (props.reply == false) {
+      setTo("");
+      setSubject("");
+    }
+  }, []);
   const onChangeTo = (e) => {
     setTo(e.target.value);
-    console.log(to);
   };
   const onChangeSubject = (e) => {
     setSubject(e.target.value);
@@ -22,13 +31,13 @@ export default function CreateMail(props) {
   const onChangeContent = (e) => {
     setContent(e.target.value);
   };
-  //console.log(from, "from frontend");
+
   const onSubmit = (e) => {
     e.preventDefault();
     var date = new Date();
     setDate(date);
     const recievers = to.split(",");
-    //console.log(date, "createmail component log");
+
     recievers.map((el) => {
       const mail = {
         from: from,
@@ -41,6 +50,10 @@ export default function CreateMail(props) {
         .post("http://localhost:5000/mails/add", mail)
         .then((res) => {
           console.log(mail.to);
+          setContent("");
+          setDate("");
+          setTo("");
+          setSubject("");
         })
         .catch((err) => {
           console.log(err.response.data);

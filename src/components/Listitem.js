@@ -17,7 +17,6 @@ export default function Listitem(props) {
       }}
     >
       <td>{props.subject}</td>
-      <td>{props.to}</td>
       <td>{props.from}</td>
       <td>{props.date}</td>
       <td>

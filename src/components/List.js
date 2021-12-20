@@ -26,7 +26,6 @@ export default function List(props) {
       <thead>
         <tr>
           <th>Subject.</th>
-          <th>To:</th>
           <th>From:</th>
           <th>Date</th>
         </tr>

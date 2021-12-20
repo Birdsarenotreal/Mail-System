@@ -19,6 +19,7 @@ export default function Home() {
   const [contains2, setContains2] = useState("");
   const [read, setRead] = useState("");
   const [compose, setCompose] = useState("");
+  const [reply, setReply] = useState(false);
   const history = useHistory();
 
   const findEmail = (contains) => {
@@ -94,6 +95,7 @@ export default function Home() {
           onClick={() => {
             setCompose(true);
             setRead(false);
+            setReply(false);
           }}
         >
           Compose new email.
@@ -128,9 +130,20 @@ export default function Home() {
         toggleComposeOff={setCompose}
       ></List>
       {compose && (
-        <CreateMail from={userName} cc={selectedMail.from}></CreateMail>
+        <CreateMail
+          from={userName}
+          cc={selectedMail}
+          reply={reply}
+        ></CreateMail>
       )}
-      {read && <Reader mail={selectedMail}></Reader>}
+      {read && (
+        <Reader
+          mail={selectedMail}
+          reply={setReply}
+          toggleReadOff={setRead}
+          toggleComposeOn={setCompose}
+        ></Reader>
+      )}
     </div>
   );
 }

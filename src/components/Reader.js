@@ -18,24 +18,6 @@ export default function Reader(props) {
   });
 
   return (
-    // <div>
-    //   <div>
-    //     <h5>From:</h5>
-    //     <div>{from}</div>
-    //   </div>
-    //   <div>
-    //     <h5>Subject:</h5>
-    //     <p>{subject}</p>
-    //   </div>
-    //   <div>
-    //     <h5>Date:</h5>
-    //     <p>{date}</p>
-    //   </div>
-    //   <div>
-    //     <h5>Content:</h5>
-    //     <p>{content}</p>
-    //   </div>
-    // </div>
     <form>
       <div className="form-group">
         <label htmlFor="exampleFormControlInput1">From:</label>
@@ -79,7 +61,17 @@ export default function Reader(props) {
           readOnly
         ></textarea>
       </div>
-      <button className="btn btn-info">Reply.</button>
+      <button
+        className="btn btn-info"
+        onClick={(e) => {
+          e.preventDefault();
+          props.toggleReadOff(false);
+          props.toggleComposeOn(true);
+          props.reply(true);
+        }}
+      >
+        Reply to sender.
+      </button>
     </form>
   );
 }
