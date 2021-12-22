@@ -17,6 +17,7 @@ export default function List(props) {
           content={el.content}
           toggleReadOn={props.toggleReadOn}
           toggleComposeOff={props.toggleComposeOff}
+          sent={props.sent}
         ></Listitem>
       );
     });
@@ -31,7 +32,7 @@ export default function List(props) {
             <th>From.</th>
             {props.sent == true && <th>To:</th>}
             <th>Date</th>
-            <th>Delete</th>
+            {props.sent == false && <th>Delete</th>}
           </tr>
         </thead>
         <tbody>{items()}</tbody>

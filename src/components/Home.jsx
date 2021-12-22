@@ -35,6 +35,7 @@ export default function Home() {
 
   useEffect(() => {
     const obj = getFromStorage("the_main_app");
+
     if (!obj) {
       history.push("/");
       return;
@@ -42,6 +43,9 @@ export default function Home() {
     setToken(obj.token);
     setUserName(obj.userName);
   });
+
+  //DEFINE A VALID EMAIL FUNCTION !
+
   useEffect(() => {
     setSent(false);
   }, []);

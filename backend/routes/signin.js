@@ -69,6 +69,12 @@ router.route("/add").post((req, res) => {
     return res.status(500).json({ error: "Email must contain @." });
   }
 
+  if (email.length > 30 || password.length > 30) {
+    return res
+      .status(500)
+      .json({ error: "Email/Password can't have more than 30 characters." });
+  }
+
   const promise = User.find({ email: email });
 
   const newUser = new User();

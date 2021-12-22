@@ -36,8 +36,36 @@ export default function CreateMail(props) {
     e.preventDefault();
     var date = new Date();
     setDate(date);
+    var validation = true;
     const recievers = to.split(",");
+    for (var i = 0; i < recievers.length; i++) {
+      if (!recievers[i].includes("@") || !recievers[i].includes(".")) {
+        alert(
+          "Email must be in the form of user@domain.TLD (either the @ or the . symbols are missing)"
+        );
+        validation = false;
+      }
+      const dot = recievers[i].split(".");
 
+      if (dot[1] == "") {
+        alert(
+          "Email must be in the form of user@domain.TLD (the TLD is missing)"
+        );
+        validation = false;
+      }
+
+      for (var j = 0; j < recievers[i].length; j++) {
+        if (recievers[i][j] == "@" && recievers[i][j + 1] == ".") {
+          alert(
+            "Email must be in the form of user@domain.TLD (the domain is missing)"
+          );
+          validation = false;
+        }
+      }
+    }
+    if (!validation) {
+      return;
+    }
     recievers.map((el) => {
       const mail = {
         from: from,
@@ -67,7 +95,6 @@ export default function CreateMail(props) {
         <label htmlFor="exampleFormControlInput1">To:</label>
         <input
           title="To send a mail to multiple users, separate them by a comma."
-          value="44"
           className="form-control"
           id="exampleFormControlInput1"
           placeholder="name@example.com"
