@@ -42,7 +42,7 @@ export default function SignUp() {
   return (
     <form
       onSubmit={onSignUp}
-      className="text-center"
+      className="text-center col-6 offset-3 my-5 text-center"
       autoComplete="new-password"
     >
       <div className="form-group">

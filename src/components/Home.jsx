@@ -26,10 +26,11 @@ export default function Home() {
   const findEmail = (contains) => {
     const test = mails.filter(
       (el) =>
-        el.subject.includes(contains) == true ||
-        el.content.includes(contains) == true ||
-        el.from.includes(contains) == true
+        el.subject.toLowerCase().includes(contains.toLowerCase()) == true ||
+        el.content.toLowerCase().includes(contains.toLowerCase()) == true ||
+        el.from.toLowerCase().includes(contains.toLowerCase()) == true
     );
+    console.log(test);
     setMails(test);
   };
 
@@ -43,8 +44,6 @@ export default function Home() {
     setToken(obj.token);
     setUserName(obj.userName);
   });
-
-  //DEFINE A VALID EMAIL FUNCTION !
 
   useEffect(() => {
     setSent(false);

@@ -29,7 +29,7 @@ export default function List(props) {
         <thead>
           <tr>
             <th>Subject.</th>
-            <th>From.</th>
+            {props.sent == false && <th>From.</th>}
             {props.sent == true && <th>To:</th>}
             <th>Date</th>
             {props.sent == false && <th>Delete</th>}

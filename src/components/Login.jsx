@@ -52,41 +52,47 @@ export default function Login() {
   };
 
   return (
-    <form onSubmit={onLogIn} className="text-center">
-      <div className="form-group">
-        <label htmlFor="exampleInputEmail1">Email address</label>
-        <input
-          type="email"
-          required
-          className="form-control"
-          id="exampleInputEmail1"
-          aria-describedby="emailHelp"
-          placeholder="Enter email"
-          value={email || ""}
-          onChange={onChangeEmail}
-        />
-      </div>
-      <div className="form-group text-danger m-1"> {signInError}</div>
-      <div className="form-group">
-        <label htmlFor="exampleInputPassword1">Password</label>
-        <input
-          type="password"
-          required
-          className="form-control"
-          id="exampleInputPassword1"
-          placeholder="Password"
-          value={password || ""}
-          onChange={onChangePassword}
-        />
-      </div>
-      <button type="submit" className="btn btn-primary mt-2" onClick={onLogIn}>
-        Login.
-      </button>
-      &nbsp;
-      <div className="form-group m-1">
-        {" "}
-        Don't have an account? Click <a href="/signup">here</a> to sign up.
-      </div>
-    </form>
+    <div className="row">
+      <form onSubmit={onLogIn} className="col-6 offset-3 my-5 text-center">
+        <div className="form-group">
+          <label htmlFor="exampleInputEmail1">Email address</label>
+          <input
+            type="email"
+            required
+            className="form-control"
+            id="exampleInputEmail1"
+            aria-describedby="emailHelp"
+            placeholder="Enter email"
+            value={email || ""}
+            onChange={onChangeEmail}
+          />
+        </div>
+        <div className="form-group text-danger m-1"> {signInError}</div>
+        <div className="form-group">
+          <label htmlFor="exampleInputPassword1">Password</label>
+          <input
+            type="password"
+            required
+            className="form-control"
+            id="exampleInputPassword1"
+            placeholder="Password"
+            value={password || ""}
+            onChange={onChangePassword}
+          />
+        </div>
+        <button
+          type="submit"
+          className="btn btn-primary mt-2"
+          onClick={onLogIn}
+        >
+          Login.
+        </button>
+        &nbsp;
+        <div className="form-group m-1">
+          {" "}
+          Don't have an account? Click <a href="/signup">here</a> to sign up.
+        </div>
+      </form>
+    </div>
   );
 }

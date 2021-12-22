@@ -17,8 +17,8 @@ export default function Listitem(props) {
       }}
     >
       <td>{props.subject}</td>
-      <td>{props.from}</td>
-      <td>{props.to}</td>
+      {!props.sent && <td>{props.from}</td>}
+      {props.sent && <td>{props.to}</td>}
       <td>{props.date}</td>
       {!props.sent && (
         <td>
