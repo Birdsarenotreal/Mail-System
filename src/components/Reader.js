@@ -62,7 +62,7 @@ export default function Reader(props) {
         ></textarea>
       </div>
       <button
-        className="btn btn-info"
+        className="btn btn-primary my-2"
         onClick={(e) => {
           e.preventDefault();
           props.toggleReadOff(false);

@@ -13,6 +13,17 @@ router.route("/").get((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
+router.route("/sent").get((req, res) => {
+  const from = req.query.from;
+  console.log(from);
+  const promise = Mail.find({ from: from });
+  promise
+    .then((mails) => {
+      res.json(mails);
+    })
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+
 router.route("/add").post((req, res) => {
   const subject = req.body.subject;
   const to = req.body.to;

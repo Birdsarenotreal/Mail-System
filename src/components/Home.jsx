@@ -20,6 +20,7 @@ export default function Home() {
   const [read, setRead] = useState("");
   const [compose, setCompose] = useState("");
   const [reply, setReply] = useState(false);
+  const [sent, setSent] = useState(true);
   const history = useHistory();
 
   const findEmail = (contains) => {
@@ -41,10 +42,16 @@ export default function Home() {
     setToken(obj.token);
     setUserName(obj.userName);
   });
+  useEffect(() => {
+    setSent(false);
+  }, []);
   const deleteMail = (id) => {
     axios
       .delete("http://localhost:5000/mails/", { params: { id: id } })
-      .then(alert("Email deleted."))
+      .then(() => {
+        alert("Email deleted.");
+        setRead(false);
+      })
       .catch((err) => console.log(err.response.data));
     setMails(mails.filter((el) => el._id !== id));
   };
@@ -54,10 +61,19 @@ export default function Home() {
       .get("http://localhost:5000/mails/", { params: { userName: userName } })
       .then((data) => {
         setMails(data.data);
+        setSent(false);
       });
     console.log(mails);
   };
-
+  const sentMails = () => {
+    axios
+      .get("http://localhost:5000/mails/sent", { params: { from: userName } })
+      .then((data) => {
+        setMails(data.data);
+        setSent(true);
+      });
+    console.log(mails);
+  };
   const onChangeContains = (e) => {
     setContains2(e.target.value);
   };
@@ -83,10 +99,17 @@ export default function Home() {
   };
   return (
     <div className="row py-4">
-      <div className="col-2">
-        <VerticalNavOne></VerticalNavOne>
+      <div className="col-md-2">
+        <VerticalNavTwo
+          logout={Logout}
+          refresh={loadMails}
+          composeProp={setCompose}
+          readProp={setRead}
+          replyProp={setReply}
+          onSent={sentMails}
+        ></VerticalNavTwo>
       </div>
-      <div className="col-8">
+      <div className="col-md-10">
         <div className="input-group pb-2">
           <div className="form-outline">
             <input
@@ -114,6 +137,7 @@ export default function Home() {
           selected={setSelectedMail}
           toggleReadOn={setRead}
           toggleComposeOff={setCompose}
+          sent={sent}
         ></List>
         {compose && (
           <CreateMail
@@ -130,15 +154,6 @@ export default function Home() {
             toggleComposeOn={setCompose}
           ></Reader>
         )}
-      </div>
-      <div className="col-2">
-        <VerticalNavTwo
-          logout={Logout}
-          refresh={loadMails}
-          composeProp={setCompose}
-          readProp={setRead}
-          replyProp={setReply}
-        ></VerticalNavTwo>
       </div>
     </div>
   );
@@ -168,13 +183,8 @@ const VerticalNavTwo = (props) => (
         Compose new email.
       </button>
     </li>
-  </ul>
-);
-
-const VerticalNavOne = (props) => (
-  <ul className="nav flex-column">
     <li className="nav-item m-1">
-      <button className="btn btn-primary w-100" onClick={props.logout}>
+      <button className="btn btn-primary w-100" onClick={() => props.onSent()}>
         Sent mails.
       </button>
     </li>

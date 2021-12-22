@@ -50,6 +50,7 @@ export default function CreateMail(props) {
         .post("http://localhost:5000/mails/add", mail)
         .then((res) => {
           console.log(mail.to);
+          alert("Mail sent succesfully!");
           setContent("");
           setDate("");
           setTo("");
@@ -65,6 +66,8 @@ export default function CreateMail(props) {
       <div className="form-group">
         <label htmlFor="exampleFormControlInput1">To:</label>
         <input
+          title="To send a mail to multiple users, separate them by a comma."
+          value="44"
           className="form-control"
           id="exampleFormControlInput1"
           placeholder="name@example.com"

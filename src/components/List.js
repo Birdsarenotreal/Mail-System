@@ -28,7 +28,8 @@ export default function List(props) {
         <thead>
           <tr>
             <th>Subject.</th>
-            <th>From:</th>
+            <th>From.</th>
+            {props.sent == true && <th>To:</th>}
             <th>Date</th>
             <th>Delete</th>
           </tr>
