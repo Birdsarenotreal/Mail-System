@@ -10,7 +10,7 @@ function App() {
   return (
     <Router>
       <div className="main">
-        <div className="container">
+        <div className="container-fluid">
           <Route path="/" exact component={Login} />
           <Route path="/login" component={Login}></Route>
           <Route path="/signup" component={SignUp}></Route>

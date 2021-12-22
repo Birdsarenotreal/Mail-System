@@ -82,68 +82,106 @@ export default function Home() {
     }
   };
   return (
-    <div className="row">
-      <div className="row">
-        <button className="col-2" onClick={Logout}>
-          Logout
-        </button>
-        <button className="col-2 offset-md-2" onClick={loadMails}>
-          Refresh emails.
-        </button>
-        <button
-          className="col-2 offset-md-2"
-          onClick={() => {
-            setCompose(true);
-            setRead(false);
-            setReply(false);
-          }}
-        >
-          Compose new email.
-        </button>
+    <div className="row py-4">
+      <div className="col-2">
+        <VerticalNavOne></VerticalNavOne>
       </div>
-      <div className="input-group">
-        <div className="form-outline">
-          <input
-            type="search"
-            id="form1"
-            className="form-control"
-            value={contains2}
-            onChange={onChangeContains}
-          />
+      <div className="col-8">
+        <div className="input-group pb-2">
+          <div className="form-outline">
+            <input
+              type="search"
+              id="form1"
+              className="form-control"
+              value={contains2}
+              onChange={onChangeContains}
+            />
+          </div>
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={() => {
+              findEmail(contains2);
+            }}
+          >
+            <i className="fas fa-search">Search</i>
+          </button>
         </div>
-        <button
-          type="button"
-          className="btn btn-primary"
-          onClick={() => {
-            findEmail(contains2);
-          }}
-        >
-          <i className="fas fa-search">Search</i>
-        </button>
-      </div>
 
-      <List
-        data={mails}
-        delete={deleteMail}
-        selected={setSelectedMail}
-        toggleReadOn={setRead}
-        toggleComposeOff={setCompose}
-      ></List>
-      {compose && (
-        <CreateMail
-          from={userName}
-          cc={selectedMail}
-          reply={reply}
-        ></CreateMail>
-      )}
-      {read && (
-        <Reader
-          mail={selectedMail}
-          reply={setReply}
-          toggleReadOff={setRead}
-          toggleComposeOn={setCompose}
-        ></Reader>
-      )}
+        <List
+          data={mails}
+          delete={deleteMail}
+          selected={setSelectedMail}
+          toggleReadOn={setRead}
+          toggleComposeOff={setCompose}
+        ></List>
+        {compose && (
+          <CreateMail
+            from={userName}
+            cc={selectedMail}
+            reply={reply}
+          ></CreateMail>
+        )}
+        {read && (
+          <Reader
+            mail={selectedMail}
+            reply={setReply}
+            toggleReadOff={setRead}
+            toggleComposeOn={setCompose}
+          ></Reader>
+        )}
+      </div>
+      <div className="col-2">
+        <VerticalNavTwo
+          logout={Logout}
+          refresh={loadMails}
+          composeProp={setCompose}
+          readProp={setRead}
+          replyProp={setReply}
+        ></VerticalNavTwo>
+      </div>
     </div>
   );
 }
+
+const VerticalNavTwo = (props) => (
+  <ul className="nav flex-column">
+    <li className="nav-item m-1">
+      <button className="btn btn-primary w-100" onClick={props.logout}>
+        Logout
+      </button>
+    </li>
+    <li className="nav-item m-1">
+      <button className="btn btn-primary w-100" onClick={props.refresh}>
+        Refresh emails.
+      </button>
+    </li>
+    <li className="nav-item m-1">
+      <button
+        className="btn btn-primary w-100"
+        onClick={() => {
+          props.composeProp(true);
+          props.readProp(false);
+          props.replyProp(false);
+        }}
+      >
+        Compose new email.
+      </button>
+    </li>
+  </ul>
+);
+
+const VerticalNavOne = (props) => (
+  <ul className="nav flex-column">
+    <li className="nav-item m-1">
+      <button className="btn btn-primary w-100" onClick={props.logout}>
+        Sent mails.
+      </button>
+    </li>
+    <li className="nav-item m-1">
+      <button className="btn btn-primary w-100" onClick={props.refresh}>
+        Inbox.
+      </button>
+    </li>
+  </ul>
+);

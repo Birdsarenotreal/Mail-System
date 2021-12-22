@@ -22,15 +22,19 @@ export default function List(props) {
     });
   };
   return (
-    <table className="table table-light">
-      <thead>
-        <tr>
-          <th>Subject.</th>
-          <th>From:</th>
-          <th>Date</th>
-        </tr>
-      </thead>
-      <tbody>{items()}</tbody>
-    </table>
+    <div className="table-wrapper-scroll-y my-custom-scrollbar">
+      {" "}
+      <table className="table table-light table-hover table-responsive">
+        <thead>
+          <tr>
+            <th>Subject.</th>
+            <th>From:</th>
+            <th>Date</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>{items()}</tbody>
+      </table>
+    </div>
   );
 }
