@@ -75,7 +75,6 @@ export default function CreateMail(props) {
       axios
         .post("http://localhost:5000/mails/add", mail)
         .then((res) => {
-          console.log(mail.to);
           alert("Mail sent succesfully!");
           setContent("");
           setTo("");

@@ -17,6 +17,7 @@ export default function Home() {
   const [compose, setCompose] = useState("");
   const [reply, setReply] = useState(false);
   const [sent, setSent] = useState(true);
+  //const [loading, setLoading] = useState(true);
   const history = useHistory();
 
   const findEmail = (contains) => {
@@ -50,19 +51,26 @@ export default function Home() {
       .catch((err) => console.log(err.response.data));
     setMails(mails.filter((el) => el._id !== id));
   };
-
-  const loadMails = (e) => {
+  //smtp server
+  const loadMails = () => {
+    const obj = getFromStorage("the_main_app");
     axios
-      .get("http://localhost:5000/mails/", { params: { userName: userName } })
+      .get("http://localhost:5000/mails/", {
+        params: { userName: obj.userName },
+      })
       .then((data) => {
         setMails(data.data);
         setSent(false);
       });
-    console.log(mails);
   };
   useEffect(() => {
-    setSent(false);
+    const obj = getFromStorage("the_main_app");
+    if (!obj) {
+      history.push("/");
+      return;
+    }
     loadMails();
+    setSent(false);
   }, []);
   const sentMails = () => {
     axios
@@ -138,6 +146,7 @@ export default function Home() {
           toggleComposeOff={setCompose}
           sent={sent}
         ></List>
+
         {compose && (
           <CreateMail
             from={userName}
@@ -168,7 +177,7 @@ const VerticalNavTwo = (props) => (
     </li>
     <li className="nav-item m-1">
       <button className="btn btn-primary w-100" onClick={props.refresh}>
-        Refresh emails.
+        Refresh mail.
       </button>
     </li>
     <li className="nav-item m-1">
@@ -180,12 +189,12 @@ const VerticalNavTwo = (props) => (
           props.replyProp(false);
         }}
       >
-        Compose new email.
+        Compose new mail.
       </button>
     </li>
     <li className="nav-item m-1">
       <button className="btn btn-primary w-100" onClick={() => props.onSent()}>
-        Sent mails.
+        Sent mail.
       </button>
     </li>
     <li className="nav-item m-1">

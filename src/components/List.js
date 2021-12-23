@@ -25,7 +25,7 @@ export default function List(props) {
   return (
     <div className="table-wrapper-scroll-y my-custom-scrollbar">
       {" "}
-      <table className="table table-light table-hover table-responsive">
+      <table className="table table-light table-hover table-responsive border border-2">
         <thead>
           <tr>
             <th>Subject.</th>
