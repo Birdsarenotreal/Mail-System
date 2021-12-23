@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../css/Login.css";
 import axios from "axios";
-import { setInStorage, getFromStorage } from "../utils/storage.js";
+import { setInStorage } from "../utils/storage.js";
 import { useHistory } from "react-router-dom";
 
 export default function Login() {

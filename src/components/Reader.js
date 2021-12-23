@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 
 export default function Reader(props) {
   const [to, setTo] = useState("");
@@ -19,17 +18,32 @@ export default function Reader(props) {
 
   return (
     <form>
-      <div className="form-group">
-        <label htmlFor="exampleFormControlInput1">From:</label>
-        <input
-          type="email"
-          className="form-control"
-          id="exampleFormControlInput1"
-          value={from || ""}
-          autoComplete="off"
-          readOnly
-        />
-      </div>
+      {!props.sent && (
+        <div className="form-group">
+          <label htmlFor="exampleFormControlInput1">From:</label>
+          <input
+            type="email"
+            className="form-control"
+            id="exampleFormControlInput1"
+            value={from || ""}
+            autoComplete="off"
+            readOnly
+          />
+        </div>
+      )}
+      {props.sent && (
+        <div className="form-group">
+          <label htmlFor="exampleFormControlInput1">To:</label>
+          <input
+            type="email"
+            className="form-control"
+            id="exampleFormControlInput1"
+            value={to || ""}
+            autoComplete="off"
+            readOnly
+          />
+        </div>
+      )}
       <div className="form-group">
         <label htmlFor="exampleFormControlInput1">Date:</label>
         <input

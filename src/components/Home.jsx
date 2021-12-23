@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from "react";
 import List from "./List";
-import {
-  setInStorage,
-  getFromStorage,
-  removeFromStorage,
-} from "../utils/storage.js";
+import { getFromStorage, removeFromStorage } from "../utils/storage.js";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -26,9 +22,9 @@ export default function Home() {
   const findEmail = (contains) => {
     const test = mails.filter(
       (el) =>
-        el.subject.toLowerCase().includes(contains.toLowerCase()) == true ||
-        el.content.toLowerCase().includes(contains.toLowerCase()) == true ||
-        el.from.toLowerCase().includes(contains.toLowerCase()) == true
+        el.subject.toLowerCase().includes(contains.toLowerCase()) === true ||
+        el.content.toLowerCase().includes(contains.toLowerCase()) === true ||
+        el.from.toLowerCase().includes(contains.toLowerCase()) === true
     );
     console.log(test);
     setMails(test);
@@ -36,7 +32,6 @@ export default function Home() {
 
   useEffect(() => {
     const obj = getFromStorage("the_main_app");
-
     if (!obj) {
       history.push("/");
       return;
@@ -45,9 +40,6 @@ export default function Home() {
     setUserName(obj.userName);
   });
 
-  useEffect(() => {
-    setSent(false);
-  }, []);
   const deleteMail = (id) => {
     axios
       .delete("http://localhost:5000/mails/", { params: { id: id } })
@@ -68,6 +60,10 @@ export default function Home() {
       });
     console.log(mails);
   };
+  useEffect(() => {
+    setSent(false);
+    loadMails();
+  }, []);
   const sentMails = () => {
     axios
       .get("http://localhost:5000/mails/sent", { params: { from: userName } })
@@ -155,6 +151,7 @@ export default function Home() {
             reply={setReply}
             toggleReadOff={setRead}
             toggleComposeOn={setCompose}
+            sent={sent}
           ></Reader>
         )}
       </div>

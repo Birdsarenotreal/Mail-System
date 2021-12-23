@@ -3,7 +3,6 @@ import { useHistory } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../css/Login.css";
 import axios from "axios";
-import { setInStorage, getFromStorage } from "../utils/storage.js";
 
 export default function SignUp() {
   const [email, setEmail] = useState("");

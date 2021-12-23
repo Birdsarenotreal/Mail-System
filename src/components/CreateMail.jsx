@@ -5,19 +5,18 @@ export default function CreateMail(props) {
   const [to, setTo] = useState("");
   const [subject, setSubject] = useState("");
   const [content, setContent] = useState("");
-  const [date, setDate] = useState();
   const [from, setFrom] = useState(props.from);
 
   useEffect(() => {
     setFrom(props.from);
   }, [to]);
   useEffect(() => {
-    if (props.reply == true) {
+    if (props.reply === true) {
       console.log(props.cc.from, props.cc.subject);
       setTo(props.cc.from);
       setSubject(props.cc.subject);
     }
-    if (props.reply == false) {
+    if (props.reply === false) {
       setTo("");
       setSubject("");
     }
@@ -35,7 +34,6 @@ export default function CreateMail(props) {
   const onSubmit = (e) => {
     e.preventDefault();
     var date = new Date();
-    setDate(date);
     var validation = true;
     const recievers = to.split(",");
     for (var i = 0; i < recievers.length; i++) {
@@ -47,7 +45,7 @@ export default function CreateMail(props) {
       }
       const dot = recievers[i].split(".");
 
-      if (dot[1] == "") {
+      if (dot[1] === "") {
         alert(
           "Email must be in the form of user@domain.TLD (the TLD is missing)"
         );
@@ -55,7 +53,7 @@ export default function CreateMail(props) {
       }
 
       for (var j = 0; j < recievers[i].length; j++) {
-        if (recievers[i][j] == "@" && recievers[i][j + 1] == ".") {
+        if (recievers[i][j] === "@" && recievers[i][j + 1] === ".") {
           alert(
             "Email must be in the form of user@domain.TLD (the domain is missing)"
           );
@@ -66,7 +64,7 @@ export default function CreateMail(props) {
     if (!validation) {
       return;
     }
-    recievers.map((el) => {
+    recievers.forEach((el) => {
       const mail = {
         from: from,
         to: el,
@@ -80,7 +78,6 @@ export default function CreateMail(props) {
           console.log(mail.to);
           alert("Mail sent succesfully!");
           setContent("");
-          setDate("");
           setTo("");
           setSubject("");
         })

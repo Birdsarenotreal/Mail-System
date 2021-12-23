@@ -29,10 +29,10 @@ export default function List(props) {
         <thead>
           <tr>
             <th>Subject.</th>
-            {props.sent == false && <th>From.</th>}
-            {props.sent == true && <th>To:</th>}
+            {props.sent === false && <th>From.</th>}
+            {props.sent === true && <th>To:</th>}
             <th>Date</th>
-            {props.sent == false && <th>Delete</th>}
+            {props.sent === false && <th>Delete</th>}
           </tr>
         </thead>
         <tbody>{items()}</tbody>
