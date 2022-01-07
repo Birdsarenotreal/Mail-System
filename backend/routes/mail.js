@@ -4,7 +4,7 @@ let Mail = require("../models/Mail.model");
 
 router.route("/").get((req, res) => {
   const userName = req.query.userName;
-  console.log(userName);
+  //console.log(userName);
   const promise = Mail.find({ to: userName });
   promise
     .then((mails) => {
@@ -15,7 +15,7 @@ router.route("/").get((req, res) => {
 
 router.route("/sent").get((req, res) => {
   const from = req.query.from;
-  console.log(from);
+  //console.log(from);
   const promise = Mail.find({ from: from });
   promise
     .then((mails) => {
@@ -41,7 +41,7 @@ router.route("/add").post((req, res) => {
 
 router.route("/").delete((req, res) => {
   const id = req.query.id;
-  console.log(id);
+  //console.log(id);
   Mail.findByIdAndDelete(id)
     .then((Mail) => res.json("Mail deleted"))
     .catch((err) => res.status(400).json("error: " + err));
